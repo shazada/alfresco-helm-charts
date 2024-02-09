@@ -1,0 +1,57 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "helm package alfresco-search-service",
+            "type": "shell",
+            "command": "helm package alfresco-search-service",
+            "problemMatcher": [],
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            "options": {
+                "cwd": "charts"
+            }
+        },
+        {
+            "label": "helm push alfresco-search-service",
+            "type": "shell",
+            "command": "helm push alfresco-search-service-2.1.0.tgz oci://harbor.contezza.nl/alfresco-helm-charts",
+            "problemMatcher": [],
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            "options": {
+                "cwd": "charts"
+            }
+        },
+        {
+            "label": "helm install SEARCH Local",
+            "type": "shell",
+            "command": "helm upgrade --install search -f values.yaml -f values-local.yaml .",
+            "problemMatcher": [],
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            "options": {
+                "cwd": "charts/alfresco-search-service"
+            }
+        },
+        {
+            "label": "helm install SEARCH Local DRY-RUN",
+            "type": "shell",
+            "command": "helm upgrade --install search -f values.yaml -f values-local.yaml . --dry-run -n alfresco-ontw > dry_run.yaml",
+            "problemMatcher": [],
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            "options": {
+                "cwd": "charts/alfresco-search-service"
+            }
+        },
+    ]
+}

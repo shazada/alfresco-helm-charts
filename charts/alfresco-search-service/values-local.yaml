@@ -1,0 +1,36 @@
+global:
+  alfrescoRegistryPullSecrets: regcred-tahir
+#     auth: secret
+#     sharedsecret: secret
+
+repository:
+  # -- Alfresco repository URL
+  url: http://alfresco-alfresco-cs-repository/solr
+  # -- repository security level to use when tracking the repo ('none' or 'secret')
+  securecomms: secret
+  # -- Secret shared with the repository when securecomms is set to 'secret'
+  sharedSecret: secret
+
+ingress:
+  enabled: true
+  hostName: localhost
+  basicAuth: YWRtaW46JGFwcjEkVVJqb29uS00kSEMuS1EwVkRScFpwSHB2a3JwTDd1Lg==
+
+searchServicesImage:
+  # repository: alfresco/alfresco-search-services
+  # # tag: 1.4.3.4
+  # tag: 2.0.8.2
+    repository: harbor.contezza.nl/amsterdam/solr
+    tag: 2.0.6
+environment:
+  SOLR_JAVA_MEM: "-Xms2g -Xmx3g -XX:ActiveProcessorCount=2"
+  # JAVA_TOOL_OPTIONS: -javaagent:/elastic/apm/agent/elastic-apm-agent.jar
+  # ELASTIC_APM_SERVICE_NAME: search-o-alfresco-search-service-solr
+  # ELASTIC_APM_APPLICATION_PACKAGES: com.alfresco,org.alfresco,nl.amsterdam
+resources:
+  requests:
+    memory: "2000Mi"
+    cpu: "500m"
+  limits:
+    memory: "4000Mi"
+    cpu: "1000m"
